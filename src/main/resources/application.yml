@@ -3,12 +3,34 @@ server:
 spring:
   kafka:
     consumer:
-      bootstrap-servers: localhost:9092
-      group-id: group_id
+      bootstrap-servers: 192.168.99.100:9092
+      group-id: group-id
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 192.168.99.100:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    listener:
+      ack-mode: manual_immediate
+    topic: users
+---
+spring:
+  profiles: IT
+  kafka:
+    bootstrap-servers: 192.168.99.100:9092
+    consumer:
+      group-id: group-id
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual_immediate
+    producer:
+      bootstrap-servers: 192.168.99.100:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    topic: users
