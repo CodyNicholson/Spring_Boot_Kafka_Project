@@ -1,5 +1,6 @@
-package com.demo.kafka.springbootkafkaproject.service;
+package com.demo.kafka.springbootkafkaproject.service.consumer;
 
+import com.demo.kafka.springbootkafkaproject.service.producer.ProducerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class Consumer {
+public class ConsumerService {
 
-    private final Logger logger = LoggerFactory.getLogger(Producer.class);
+    private final Logger logger = LoggerFactory.getLogger(ProducerService.class);
 
     @Autowired
     private final ObjectMapper mapper = new ObjectMapper();
