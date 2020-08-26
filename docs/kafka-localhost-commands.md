@@ -1,5 +1,7 @@
 # KAFKA LOCALHOST COMMANDS
 
+You do not need to use any of these commands if you spin up the Kafka Broker and Zookeeper Docker containers, but they are here for your reference!
+
 ### CREATE KAFKA TOPIC - If it does not already exist
 sh bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 
 --partitions 1 --topic users

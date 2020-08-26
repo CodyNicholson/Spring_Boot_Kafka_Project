@@ -9,5 +9,4 @@ class SpringBootKafkaProjectApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
