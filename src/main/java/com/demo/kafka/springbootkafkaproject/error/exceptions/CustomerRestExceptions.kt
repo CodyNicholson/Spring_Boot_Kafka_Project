@@ -9,3 +9,7 @@ class ForbiddenException(errorMessage: String?, cause: Throwable?) : Exception(e
 class NotFoundException(errorMessage: String?, cause: Throwable?) : Exception(errorMessage, cause)
 
 class ConflictException(errorMessage: String?, cause: Throwable?) : Exception(errorMessage, cause)
+
+class ServiceUnavailableException(errorMessage: String?, cause: Throwable?) : Exception(errorMessage, cause)
+
+class InternalServerErrorException(errorMessage: String?, cause: Throwable?) : Exception(errorMessage, cause)

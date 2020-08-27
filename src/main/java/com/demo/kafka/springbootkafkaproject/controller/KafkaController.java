@@ -1,6 +1,7 @@
 package com.demo.kafka.springbootkafkaproject.controller;
 
 import com.demo.kafka.springbootkafkaproject.error.exceptions.BadRequestException;
+import com.demo.kafka.springbootkafkaproject.error.exceptions.InternalServerErrorException;
 import com.demo.kafka.springbootkafkaproject.service.producer.ProducerService;
 import com.demo.kafka.springbootkafkaproject.service.validation.ValidationService;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class KafkaController {
     }
 
     @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopic(@RequestParam("message") String message) throws BadRequestException {
+    public void sendMessageToKafkaTopic(@RequestParam("message") String message) throws BadRequestException, InternalServerErrorException {
         this.validationService.validateMessage(message);
         this.producerService.sendMessage(message);
     }

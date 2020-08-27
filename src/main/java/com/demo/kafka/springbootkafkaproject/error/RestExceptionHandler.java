@@ -21,7 +21,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { BadRequestException.class })
     protected ResponseEntity<ErrorDetails> handleBadRequestException(Exception ex, WebRequest request) {
 
-        logger.error(RestExceptionConstants.BAD_REQEST_MESSAGE);
+        logger.error(RestExceptionConstants.BAD_REQEST_MESSAGE, ex);
 
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
@@ -31,12 +31,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = { NotFoundException.class })
-    protected NotFoundException handleNotFoundException(Exception ex, WebRequest request) {
+    @ExceptionHandler(value = { InternalServerErrorException.class })
+    protected ResponseEntity<ErrorDetails> handleInternalServerError(Exception ex, WebRequest request) {
 
-        logger.info(ex.getMessage(), ex);
-//        logger.debug("badbadbadnf", ex);
+        logger.info(RestExceptionConstants.INTERNAL_SERVER_ERROR_MESSAGE, ex);
 
-        return new NotFoundException(RestExceptionConstants.BAD_REQEST_MESSAGE, ex);
+        ErrorDetails errorDetails = new ErrorDetails(
+                new Date(),
+                RestExceptionConstants.INTERNAL_SERVER_ERROR_MESSAGE,
+                ex.getLocalizedMessage());
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
