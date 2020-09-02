@@ -4,8 +4,6 @@ import com.demo.kafka.springbootkafkaproject.error.exceptions.BadRequestExceptio
 import com.demo.kafka.springbootkafkaproject.error.exceptions.InternalServerErrorException;
 import com.demo.kafka.springbootkafkaproject.service.producer.ProducerService;
 import com.demo.kafka.springbootkafkaproject.service.validation.ValidationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

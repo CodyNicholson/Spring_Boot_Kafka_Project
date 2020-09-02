@@ -14,3 +14,7 @@ object DetailedErrorMessages {
     const val MESSAGE_CANNOT_BE_BLANK = "Message cannot be blank."
     const val CANNOT_PROCESS_MONEY = "We cannot process money."
 }
+
+object KafkaConsts {
+    const val USERS_TOPIC = "users"
+}

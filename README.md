@@ -8,7 +8,7 @@ To run the docker compose file in the background, cd into the relevant docker di
 docker-compose up -d
 ```
 
-NOTE: I built this project using Windows and Docker Toolbox. When using Windows and Docker Toolbox you have to point to "192.168.99.100" instead of "localhost" in the application.yml file and also in the docker-compose file. To facilitate this behavior, I added a DOCKER_TOOLBOX spring profile and docker-toolbox docker-compose file that work with Docker Toolbox, and I made the default spring profile and normal docker-compose file work for the normal Docker that I'm sure most people have.
+NOTE: I built this project using Windows and Docker Toolbox. When using Windows and Docker Toolbox you have to point to "192.168.99.100" instead of "localhost" in the application.yml file and also in the docker-compose file. To facilitate this behavior, I added a DOCKER_TOOLBOX spring profile and docker-toolbox docker-compose file that work with Docker Toolbox, and I made the default spring profile and normal docker-compose file work for the normal Docker that I'm sure most people have. To set the active profile in Intellij, edit your build configuration and set "VM options" to "-Dspring.profiles.active=DOCKER_TOOLBOX".
 
 Once you have docker running correctly you can spin up the app and hit the KafkaController endpoint with this curl command:
 

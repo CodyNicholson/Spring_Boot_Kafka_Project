@@ -31,7 +31,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = { InternalServerErrorException.class })
+    @ExceptionHandler(value = { InternalServerErrorException.class, RuntimeException.class })
     protected ResponseEntity<ErrorDetails> handleInternalServerError(Exception ex, WebRequest request) {
 
         logger.info(RestExceptionConstants.INTERNAL_SERVER_ERROR_MESSAGE, ex);
