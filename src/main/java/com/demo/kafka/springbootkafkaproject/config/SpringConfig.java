@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-class SpringConfig {
+public class SpringConfig {
 
     @Bean
     public Logger logger() {

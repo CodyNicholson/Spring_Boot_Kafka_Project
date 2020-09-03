@@ -45,7 +45,7 @@ class ProducerServiceTest {
 
         // assert
         verify(logger).info(testMessage)
-        verify(kafkaTemplate).send(KafkaConsts.USERS_TOPIC, inputMessage)
+        verify(kafkaTemplate).send(KafkaConsts.KAFKA_TOPIC, inputMessage)
         verifyNoMoreInteractions(logger)
     }
 
@@ -62,7 +62,7 @@ class ProducerServiceTest {
 
         // assert
         verify(logger).info(testMessage)
-        verify(kafkaTemplate).send(KafkaConsts.USERS_TOPIC, inputMessage)
+        verify(kafkaTemplate).send(KafkaConsts.KAFKA_TOPIC, inputMessage)
         verifyNoMoreInteractions(logger)
     }
 
@@ -79,7 +79,7 @@ class ProducerServiceTest {
 
         // assert
         verify(logger).info(testMessage)
-        verify(kafkaTemplate).send(KafkaConsts.USERS_TOPIC, inputMessage)
+        verify(kafkaTemplate).send(KafkaConsts.KAFKA_TOPIC, inputMessage)
         verifyNoMoreInteractions(logger)
     }
 }

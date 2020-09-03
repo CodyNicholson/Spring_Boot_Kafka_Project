@@ -1,5 +1,8 @@
 package com.demo.kafka.springbootkafkaproject.error;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class ErrorDetails {
@@ -19,7 +22,10 @@ public class ErrorDetails {
         return detailedMessage;
     }
 
-    public ErrorDetails(Date time, String restErrorMessage, String detailedMessage) {
+    @JsonCreator
+    public ErrorDetails(@JsonProperty("time") Date time,
+                        @JsonProperty("restErrorMessage") String restErrorMessage,
+                        @JsonProperty("detailedMessage") String detailedMessage) {
         this.time = time;
         this.restErrorMessage = restErrorMessage;
         this.detailedMessage = detailedMessage;

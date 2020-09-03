@@ -4,24 +4,13 @@ import com.demo.kafka.springbootkafkaproject.constants.DetailedErrorMessages
 import com.demo.kafka.springbootkafkaproject.error.exceptions.BadRequestException
 import com.demo.kafka.springbootkafkaproject.service.producer.ProducerService
 import com.demo.kafka.springbootkafkaproject.service.validation.ValidationService
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockito_kotlin.*
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
-import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import org.slf4j.Logger
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @ExtendWith(MockitoExtension::class)
 class KafkaControllerTest {
@@ -39,7 +28,7 @@ class KafkaControllerTest {
         doNothing().whenever(validationService).validateMessage(testMessage)
         doNothing().whenever(producerService).sendMessage(testMessage)
 
-        kafkaController.sendMessageToKafkaTopic(testMessage)
+        kafkaController.postMessageToKafkaTopic(testMessage)
 
         verify(validationService).validateMessage(testMessage)
         verify(producerService).sendMessage(testMessage)
@@ -54,7 +43,7 @@ class KafkaControllerTest {
         whenever(validationService.validateMessage(testMessage)).thenThrow(exception)
 
         val actual = assertThrows<BadRequestException> {
-            kafkaController.sendMessageToKafkaTopic(testMessage)
+            kafkaController.postMessageToKafkaTopic(testMessage)
         }
 
         assertEquals(actual.message, exception.message)

@@ -1,6 +1,6 @@
 package com.demo.kafka.springbootkafkaproject.constants
 
-object RestExceptionConstants {
+object RestErrorMessages {
     const val BAD_REQEST_MESSAGE = "400: Bad Request"
     const val FORBIDDEN_MESSAGE = "403: Forbidden"
     const val NOT_FOUND_MESSAGE = "404: Not Found"
@@ -15,6 +15,12 @@ object DetailedErrorMessages {
     const val CANNOT_PROCESS_MONEY = "We cannot process money."
 }
 
+object LoggerMessages {
+    const val CONSUME_MESSAGE = "#### -> Consumed message -> %s"
+    const val PRODUCE_MESSAGE = "#### -> Producing message -> %s"
+}
+
 object KafkaConsts {
-    const val USERS_TOPIC = "users"
+    const val KAFKA_TOPIC = "#{'\${spring.kafka.topic}'}"
+    const val KAFKA_GROUP_ID = "#{'\${spring.kafka.consumer.group-id}'}"
 }

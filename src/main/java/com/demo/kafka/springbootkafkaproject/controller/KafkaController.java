@@ -19,12 +19,12 @@ public class KafkaController {
 
     @Autowired
     KafkaController(ProducerService producerService, ValidationService validationService) {
-        this.producerService = producerService;
         this.validationService = validationService;
+        this.producerService = producerService;
     }
 
     @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopic(@RequestParam("message") String message) throws BadRequestException, InternalServerErrorException {
+    public void postMessageToKafkaTopic(@RequestParam("message") String message) throws BadRequestException, InternalServerErrorException {
         this.validationService.validateMessage(message);
         this.producerService.sendMessage(message);
     }

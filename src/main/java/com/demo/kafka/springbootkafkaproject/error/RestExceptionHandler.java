@@ -1,6 +1,6 @@
 package com.demo.kafka.springbootkafkaproject.error;
 
-import com.demo.kafka.springbootkafkaproject.constants.RestExceptionConstants;
+import com.demo.kafka.springbootkafkaproject.constants.RestErrorMessages;
 import com.demo.kafka.springbootkafkaproject.error.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +21,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { BadRequestException.class })
     protected ResponseEntity<ErrorDetails> handleBadRequestException(Exception ex, WebRequest request) {
 
-        logger.error(RestExceptionConstants.BAD_REQEST_MESSAGE, ex);
+        logger.error(RestErrorMessages.BAD_REQEST_MESSAGE, ex);
 
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
-                RestExceptionConstants.BAD_REQEST_MESSAGE,
+                RestErrorMessages.BAD_REQEST_MESSAGE,
                 ex.getLocalizedMessage());
 
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
@@ -34,11 +34,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = { InternalServerErrorException.class, RuntimeException.class })
     protected ResponseEntity<ErrorDetails> handleInternalServerError(Exception ex, WebRequest request) {
 
-        logger.info(RestExceptionConstants.INTERNAL_SERVER_ERROR_MESSAGE, ex);
+        logger.info(RestErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE, ex);
 
         ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
-                RestExceptionConstants.INTERNAL_SERVER_ERROR_MESSAGE,
+                RestErrorMessages.INTERNAL_SERVER_ERROR_MESSAGE,
                 ex.getLocalizedMessage());
 
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
