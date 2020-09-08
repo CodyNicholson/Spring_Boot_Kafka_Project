@@ -1,4 +1,4 @@
-package com.demo.kafka.springbootkafkaproject.service.producer;
+package com.demo.kafka.springbootkafkaproject.service.producer
 
 import com.demo.kafka.springbootkafkaproject.constants.KafkaConsts
 import com.nhaarman.mockito_kotlin.doNothing
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
 import org.slf4j.Logger
 import org.springframework.kafka.core.KafkaTemplate
@@ -29,7 +28,7 @@ class ProducerServiceTest {
 
     @BeforeEach
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        producerService
     }
 
     @Test
@@ -46,7 +45,7 @@ class ProducerServiceTest {
         // assert
         verify(logger).info(testMessage)
         verify(kafkaTemplate).send(KafkaConsts.KAFKA_TOPIC, inputMessage)
-        verifyNoMoreInteractions(logger)
+        verifyNoMoreInteractions(logger, kafkaTemplate)
     }
 
     @Test

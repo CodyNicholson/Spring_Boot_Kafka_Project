@@ -1,4 +1,4 @@
-package com.demo.kafka.springbootkafkaproject.service.consumer;
+package com.demo.kafka.springbootkafkaproject.service.consumer
 
 import com.nhaarman.mockito_kotlin.*
 import org.mockito.Mock
