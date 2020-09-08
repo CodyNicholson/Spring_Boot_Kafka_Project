@@ -24,6 +24,6 @@ public class ProducerService {
 
     public void sendMessage(String message) {
         logger.info(String.format(LoggerMessages.PRODUCE_MESSAGE, message));
-        this.kafkaTemplate.send(kafkaUsersTopic, message);
+        kafkaTemplate.send(kafkaUsersTopic, message);
     }
 }

@@ -13,6 +13,7 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import org.slf4j.Logger
 import org.springframework.kafka.core.KafkaTemplate
+import org.springframework.test.util.ReflectionTestUtils
 
 @ExtendWith(MockitoExtension::class)
 class ProducerServiceTest {
@@ -28,7 +29,7 @@ class ProducerServiceTest {
 
     @BeforeEach
     fun setUp() {
-        producerService
+        ReflectionTestUtils.setField(producerService, "kafkaUsersTopic", "users")
     }
 
     @Test
@@ -79,6 +80,7 @@ class ProducerServiceTest {
         // assert
         verify(logger).info(testMessage)
         verify(kafkaTemplate).send(KafkaConsts.KAFKA_TOPIC, inputMessage)
+//        verify(kafkaTemplate).send(KafkaConsts.USERS_TOPIC, inputMessage)
         verifyNoMoreInteractions(logger)
     }
 }
