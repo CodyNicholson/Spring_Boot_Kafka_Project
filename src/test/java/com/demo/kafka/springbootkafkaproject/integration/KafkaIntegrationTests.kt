@@ -3,8 +3,7 @@ package com.demo.kafka.springbootkafkaproject.integration
 import com.demo.kafka.springbootkafkaproject.integration.models.KafkaRecord
 import com.demo.kafka.springbootkafkaproject.util.SpringCommandLineProfileResolver
 import org.apache.kafka.clients.consumer.KafkaConsumer
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -35,31 +34,45 @@ class KafkaIntegrationTests {
     @Value("\${spring.kafka.consumer.value-deserializer}")
     private lateinit var kafkaValueDeserializer: String
 
-    private val kafkaProperties1 = Properties()
-    private val kafkaProperties2 = Properties()
+    private val kafkaProperties = Properties()
 
     private val testMessageValid = "testMessageValidX"
 
     @BeforeEach
     fun setUp() {
-        kafkaProperties1["bootstrap.servers"] = kafkaBootstrapServers; kafkaProperties2["bootstrap.servers"] = kafkaBootstrapServers
-        kafkaProperties1["key.deserializer"] = kafkaKeyDeserializer; kafkaProperties2["key.deserializer"] = kafkaKeyDeserializer
-        kafkaProperties1["value.deserializer"] = kafkaValueDeserializer; kafkaProperties2["value.deserializer"] = kafkaValueDeserializer
-        kafkaProperties1["auto.offset.reset"] = "earliest"; kafkaProperties2["auto.offset.reset"] = "earliest"
-        kafkaProperties1["group.id"] = UUID.randomUUID().toString(); kafkaProperties2["group.id"] = UUID.randomUUID().toString()
+        kafkaProperties["bootstrap.servers"] = kafkaBootstrapServers
+        kafkaProperties["key.deserializer"] = kafkaKeyDeserializer
+        kafkaProperties["value.deserializer"] = kafkaValueDeserializer
+        kafkaProperties["auto.offset.reset"] = "earliest"
+        kafkaProperties["group.id"] = UUID.randomUUID().toString()
 
         publishMessage1(testMessageValid)
         publishMessage2(testMessageValid)
     }
 
     @Test
-    fun `consume kafka messages, valid messages published to topic, messages consumed and output correctly`() {
-        val actualLastMessage = consumeLastMessage()
+    fun `consume all kafka messages, valid messages published to topic, messages consumed and output correctly`() {
+        val firstOffset = 1
+        val secondOffset = 2
+        val partition = 0
+
         val actualMessages = consumeMessages()
+
+        assertTrue(actualMessages.size > 1)
+        assertNotNull(actualMessages[0].offset.toInt() == firstOffset)
+        assertNotNull(actualMessages[0].partition == partition)
+        assertNotNull(actualMessages[0].timestamp)
+        assertNotNull(actualMessages[1].offset.toInt() == secondOffset)
+        assertNotNull(actualMessages[1].partition == partition)
+        assertNotNull(actualMessages[1].timestamp)
+    }
+
+    @Test
+    fun `consume last kafka messages, valid messages published to topic, messages consumed and output correctly`() {
         val expectedLastMessage = KafkaRecord(topic = kafkaUsersTopic, partition = 0, offset = 0, timestamp = 0, key = null, value = testMessageValid)
 
-        // assert
-        assertTrue(actualMessages.size > 1)
+        val actualLastMessage = consumeLastMessage()
+
         assertEquals(expectedLastMessage.topic, actualLastMessage?.topic)
         assertEquals(expectedLastMessage.partition, actualLastMessage?.partition)
         assertEquals(expectedLastMessage.value, actualLastMessage?.value)
@@ -75,7 +88,7 @@ class KafkaIntegrationTests {
     }
 
     private fun consumeMessages(): MutableList<KafkaRecord> {
-        val consumer = KafkaConsumer<String, String>(kafkaProperties1)
+        val consumer = KafkaConsumer<String, String>(kafkaProperties)
         consumer.subscribe(listOf(kafkaUsersTopic))
 
         val records = consumer.poll(Duration.ofMillis(10000))
@@ -93,7 +106,7 @@ class KafkaIntegrationTests {
     }
 
     private fun consumeLastMessage(): KafkaRecord? {
-        val consumer = KafkaConsumer<String, String>(kafkaProperties2)
+        val consumer = KafkaConsumer<String, String>(kafkaProperties)
         consumer.subscribe(listOf(kafkaUsersTopic))
 
         val records = consumer.poll(Duration.ofMillis(10000))
