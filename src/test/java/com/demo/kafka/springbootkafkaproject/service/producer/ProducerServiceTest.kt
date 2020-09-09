@@ -16,19 +16,17 @@ import org.springframework.test.util.ReflectionTestUtils
 @ExtendWith(MockitoExtension::class)
 class ProducerServiceTest {
 
-    @Mock
-    private lateinit var logger: Logger
+    private var logger: Logger = mock()
 
-    @Mock
-    private lateinit var kafkaTemplate: KafkaTemplate<String, String>
+    private var kafkaTemplate: KafkaTemplate<String, String> = mock()
 
     @InjectMocks
     private lateinit var producerService: ProducerService
 
     @BeforeEach
     fun setUp() {
-//        MockitoAnnotations.initMocks(this)
-        ReflectionTestUtils.setField(producerService, "kafkaUsersTopic", "users")
+        MockitoAnnotations.initMocks(this)
+        ReflectionTestUtils.setField(producerService, "kafkaUsersTopic", KafkaConsts.KAFKA_TOPIC)
     }
 
     @Test
