@@ -1,5 +1,7 @@
 package com.demo.kafka.springbootkafkaproject.constants
 
+import java.util.*
+
 object RestErrorMessages {
     const val BAD_REQEST_MESSAGE = "400: Bad Request"
     const val FORBIDDEN_MESSAGE = "403: Forbidden"
@@ -13,11 +15,6 @@ object RestErrorMessages {
 object DetailedErrorMessages {
     const val MESSAGE_CANNOT_BE_BLANK = "Message cannot be blank."
     const val CANNOT_PROCESS_MONEY = "We cannot process money."
-}
-
-object LoggerMessages {
-    const val CONSUME_MESSAGE = "#### -> Consumed message -> %s"
-    const val PRODUCE_MESSAGE = "#### -> Producing message -> %s"
 }
 
 object KafkaConsts {
